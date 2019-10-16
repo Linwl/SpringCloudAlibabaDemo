@@ -105,10 +105,6 @@
             <groupId>com.linwl.springcloud-alibaba-demo</groupId>
             <artifactId>common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.linwl.springcloud-alibaba-demo</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
 
     </dependencies>
 
