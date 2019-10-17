@@ -5,7 +5,9 @@ import com.linwl.gateway.client.AuthenticationService;
 import com.linwl.gateway.config.JwtConfig;
 import com.linwl.gateway.dto.JwtSubject;
 import com.linwl.gateway.dto.RefreshTokenResponseDto;
-import enums.ERRORCODE;
+import com.linwl.springcloudalibabademo.enums.ERRORCODE;
+import com.linwl.springcloudalibabademo.response.Msg;
+import com.linwl.springcloudalibabademo.utils.JWTUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -24,8 +26,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import response.Msg;
-import utils.JWTUtils;
 
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
@@ -146,7 +146,7 @@ public class JwtFilter implements GatewayFilter, Ordered {
                             return super.writeWith(body);
                         }
                     };
-            // replace response with decorator
+            // replace com.linwl.springcloudalibabademo.response with decorator
             return chain.filter(exchange.mutate().response(decoratedResponse).build());
         }
         return errorHandle(exchange, JSONObject.toJSONString(msg));

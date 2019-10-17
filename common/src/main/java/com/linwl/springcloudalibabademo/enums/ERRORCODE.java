@@ -1,8 +1,8 @@
-package enums;
+package com.linwl.springcloudalibabademo.enums;
 
 /**
  * @author ：linwl
- * @date ：Created in 2019/10/16 17:26
+ * @date ：Created in 2019/10/17 10:13
  * @description ：
  * @modified By：
  */

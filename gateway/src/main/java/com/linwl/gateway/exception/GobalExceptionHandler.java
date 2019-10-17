@@ -1,7 +1,8 @@
 package com.linwl.gateway.exception;
 
 import com.alibaba.fastjson.JSONObject;
-import enums.ERRORCODE;
+import com.linwl.springcloudalibabademo.enums.ERRORCODE;
+import com.linwl.springcloudalibabademo.response.Msg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
@@ -20,7 +21,6 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import response.Msg;
 
 import java.text.MessageFormat;
 import java.util.Collections;

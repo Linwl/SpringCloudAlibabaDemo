@@ -1,4 +1,4 @@
-package utils;
+package com.linwl.springcloudalibabademo.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * @author ：linwl
- * @date ：Created in 2019/10/16 17:57
+ * @date ：Created in 2019/10/17 10:37
  * @description ：
  * @modified By：
  */

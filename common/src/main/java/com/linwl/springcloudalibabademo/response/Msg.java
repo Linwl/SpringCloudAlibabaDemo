@@ -1,11 +1,11 @@
-package response;
+package com.linwl.springcloudalibabademo.response;
 
-import enums.ERRORCODE;
+import com.linwl.springcloudalibabademo.enums.ERRORCODE;
 import lombok.Data;
 
 /**
  * @author ：linwl
- * @date ：Created in 2019/10/16 17:27
+ * @date ：Created in 2019/10/17 10:14
  * @description ：
  * @modified By：
  */

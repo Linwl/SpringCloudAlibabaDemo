@@ -1,9 +1,9 @@
 package com.linwl.gateway.client;
 
+import com.linwl.springcloudalibabademo.response.Msg;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import response.Msg;
 
 /**
  * @author ：linwl
