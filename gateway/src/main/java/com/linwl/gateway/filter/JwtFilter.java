@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.linwl.gateway.client.AuthenticationService;
 import com.linwl.gateway.config.JwtConfig;
 import com.linwl.gateway.dto.JwtSubject;
+import com.linwl.gateway.dto.RefreshTokenResponseDto;
 import enums.ERRORCODE;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
@@ -127,7 +128,7 @@ public class JwtFilter implements GatewayFilter, Ordered {
                                                     // 释放掉内存
                                                     DataBufferUtils.release(dataBuffer);
                                                     String oldResponse = new String(content, Charset.forName("UTF-8"));
-                                                    // TODO:增加刷新Token
+                                                    // TODO:增加新Token
                                                     Msg msg = JSONObject.parseObject(oldResponse, Msg.class);
                                                     RefreshTokenResponseDto dto = new RefreshTokenResponseDto();
                                                     dto.setData(msg.getData());
@@ -191,8 +192,7 @@ public class JwtFilter implements GatewayFilter, Ordered {
             }
         } catch (Exception e) {
             log.error(MessageFormat.format("解析跳过jwt验证路径异常:{0}!", e.getMessage()));
-        } finally {
-            return result;
         }
+        return result;
     }
 }
