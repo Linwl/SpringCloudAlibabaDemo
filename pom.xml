@@ -12,6 +12,7 @@
     <modules>
         <module>gateway</module><!--API网关-->
         <module>common</module><!--通用包-->
+        <module>authentication</module><!--身份验证-->
     </modules>
 
 

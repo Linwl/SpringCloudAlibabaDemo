@@ -20,6 +20,7 @@ import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -42,6 +43,7 @@ import java.util.stream.Stream;
  * @modified By：
  */
 @Slf4j
+@Component
 public class JwtFilter implements GatewayFilter, Ordered {
 
     @Autowired
@@ -65,10 +67,10 @@ public class JwtFilter implements GatewayFilter, Ordered {
             log.info(MessageFormat.format("访问跳过jwt验证路径<{0}>!", path));
             return chain.filter(exchange);
         }
-        String jwtToken = exchange.getRequest().getHeaders().getFirst("API-Token");
+        String jwtToken = exchange.getRequest().getHeaders().getFirst("ApiToken");
         if (StringUtils.isEmpty(jwtToken)) {
             log.info("Http头部API-Token为空,开始检验参数!");
-            jwtToken = exchange.getRequest().getQueryParams().getFirst("API-Token");
+            jwtToken = exchange.getRequest().getQueryParams().getFirst("ApiToken");
         }
         // 校验jwtToken的合法性
         if (StringUtils.isNotEmpty(jwtToken)) {
@@ -105,12 +107,12 @@ public class JwtFilter implements GatewayFilter, Ordered {
      */
     private Mono<Void> handleTokenExpire(
             String apiToken, ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info(MessageFormat.format("API-Token<{0}>已过期,开始验证是否刷新Token!", apiToken));
+        log.info(MessageFormat.format("ApiToken<{0}>已过期,开始验证是否刷新Token!", apiToken));
         Msg msg = authenticationService.refreshToken(apiToken);
         if (ERRORCODE.RefreshToken.getErrorcode() == msg.getCode()) {
             String data = JSONObject.toJSONString(msg.getData());
             JwtSubject jwtSubject = JSONObject.parseObject(data, JwtSubject.class);
-            log.info(MessageFormat.format("刷新了用户<{0}>的API-Token", jwtSubject.getName()));
+            log.info(MessageFormat.format("刷新了用户<{0}>的ApiToken", jwtSubject.getName()));
             ServerHttpResponse originalResponse = exchange.getResponse();
             DataBufferFactory bufferFactory = originalResponse.bufferFactory();
             ServerHttpResponseDecorator decoratedResponse =
@@ -135,7 +137,7 @@ public class JwtFilter implements GatewayFilter, Ordered {
                                                     dto.setNewToken(jwtSubject.getToken());
                                                     Msg newResponse = new Msg.Builder().setCode(ERRORCODE.RefreshToken).setData(dto).setCount(1).build();
                                                     String responseJson = JSONObject.toJSONString(newResponse);
-                                                    log.info(MessageFormat.format("返回了用户<{0}>新的API-Token<{1}>", jwtSubject.getName(), jwtSubject.getToken()));
+                                                    log.info(MessageFormat.format("返回了用户<{0}>新的ApiToken<{1}>", jwtSubject.getName(), jwtSubject.getToken()));
                                                     byte[] uppedContent = responseJson.getBytes();
                                                     return bufferFactory.wrap(uppedContent);
                                                 }));
