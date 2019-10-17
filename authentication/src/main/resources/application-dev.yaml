@@ -1,0 +1,78 @@
+#此配置文件内容放到NACOS配置中心
+server:
+  port: 8080
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  aop:
+    auto: true
+    proxy-target-class: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+    sentinel:
+      transport:
+        dashboard: 192.168.1.107:9001
+      eager: true
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            data-id: ${spring.application.name}-flow-rules
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            dataId: ${spring.application.name}-sentinel-degrade
+            groupId: DEFAULT_GROUP
+            rule-type: degrade
+            data-type: json
+  datasource:
+    druid:
+      db1:
+        url: jdbc:mysql://******:3306/dfadff?useSSL=false&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&rewriteBatchedStatements=true
+        username: fadf
+        password: afad
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+
+  redis:
+    database: 0
+    host: 1111111
+    port: 1111
+    password: 111111
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 100 # 连接池中的最大空闲连接
+        min-idle: 50 # 连接池中的最小空闲连接
+        max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+  cache:
+    redis:
+      time-to-live: -1 #毫秒
+
+logging:
+  config: classpath:log/logback-spring.xml
+  level:
+    com:
+      tongrun:
+        usercenter:
+          mapper: "debug"
+jwt:
+  config:
+    secret-key: fadfadfkajlfdjal
+    ex-num: 30
+    ex-format: Minute
+
+async:
+  pool:
+    corePoolSize: 10
+    maxPoolSize: 20
+    queueCapacity: 1000

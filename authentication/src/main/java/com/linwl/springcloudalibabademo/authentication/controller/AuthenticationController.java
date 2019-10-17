@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description ：
  * @modified By：
  */
-@RequestMapping("authentication")
+@RequestMapping("verify")
 @RestController
 public class AuthenticationController {
 

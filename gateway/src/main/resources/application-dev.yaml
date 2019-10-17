@@ -1,0 +1,41 @@
+#此配置文件内容放到NACOS配置中心
+server:
+  port: 9002
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
+        - id: authentication-router
+          uri: lb://authentication-service
+          order: 0
+          predicates:
+            - Path= /authentication/**
+          filters:
+            - StripPrefix= 1
+            - JwtCheck
+nacos:
+  dataId: gateway_config_json
+  group: refresh_config_json
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  config: classpath:log/logback-spring.xml
+
+jwt:
+  config:
+    secret-key: fadfadfkajlfdjal
+    skipPath: /authentication/verify/login

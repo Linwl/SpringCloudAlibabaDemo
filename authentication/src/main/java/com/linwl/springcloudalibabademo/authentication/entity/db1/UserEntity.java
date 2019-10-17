@@ -13,5 +13,19 @@ import lombok.ToString;
 @ToString
 public class UserEntity {
 
+    private Integer id;
 
+    /**
+     * 名字
+     */
+    private String name;
+
+    /**
+     * 手机号
+     */
+    private String mobile;
+    /**
+     * 密码
+     */
+    private String password;
 }
