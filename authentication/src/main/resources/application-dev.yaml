@@ -62,9 +62,10 @@ logging:
   config: classpath:log/logback-spring.xml
   level:
     com:
-      tongrun:
-        usercenter:
-          mapper: "debug"
+      linwl:
+        springcloudalibabademo:
+          authentication:
+            mapper: "debug"
 jwt:
   config:
     secret-key: fadfadfkajlfdjal
